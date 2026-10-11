@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import Skill
 
@@ -17,3 +17,13 @@ def about(request):
 
 def contact(request):
     return render(request, 'core/contact.html')
+
+def skill_create(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        level = request.POST.get('level')
+
+        Skill.objects.create(name=name, level=level)
+        return redirect('home')
+
+    return render(request, 'core/skill_create.html')
