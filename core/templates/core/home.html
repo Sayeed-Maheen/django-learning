@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home - Django 6.1{% endblock %}
+
+{% block content %}
+    <h1>Welcome to {{ framework }}</h1>
+
+    <p>Hello, {{ name }}!</p>
+    <p>Current server time: {{ current_time }}</p>
+
+    <h3>Your Skills (from Database):</h3>
+
+    {% if skills %}
+        <ul>
+            {% for skill in skills %}
+                <li>
+                    <strong>{{ skill.name }}</strong>
+                    {% if skill.level %}
+                        — {{ skill.level }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No skills added yet.</p>
+    {% endif %}
+{% endblock %}
