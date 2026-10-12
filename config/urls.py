@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, about, contact, skill_create
+from core.views import home, about, contact, skill_create, skill_delete, skill_edit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,7 @@ urlpatterns = [
     path('about/', about, name = 'about'),
     path('contact/', contact, name = 'contact'),
     path('skills/add/', skill_create, name = 'skill_create'),
+    path('skills/<int:pk>/delete/', skill_delete, name='skill_delete'),
+    path('skills/<int:pk>/edit/', skill_edit, name='skill_edit'),
+
 ]

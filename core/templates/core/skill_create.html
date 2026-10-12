@@ -3,17 +3,11 @@
 {% block title %}Add Skill{% endblock %}
 
 {% block content %}
-    <h1>Add New Skill</h1>
+<h1>Add New Skill</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        
-        <label>Skill Name:</label><br>
-        <input type="text" name="name" required><br><br>
-
-        <label>Level:</label><br>
-        <input type="text" name="level" placeholder="Beginner / Intermediate / Advanced"><br><br>
-
-        <button type="submit">Save Skill</button>
-    </form>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Skill</button>
+</form>
 {% endblock %}

@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from .models import Skill
+from .forms import SkillForm
 
 def home(request):
     skills = Skill.objects.all()          # Get all skills from database
@@ -20,10 +21,29 @@ def contact(request):
 
 def skill_create(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        level = request.POST.get('level')
+        form = SkillForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = SkillForm()
 
-        Skill.objects.create(name=name, level=level)
-        return redirect('home')
+    return render(request, 'core/skill_create.html', {'form': form})
 
-    return render(request, 'core/skill_create.html')
+def skill_delete(request, pk):
+    skill = get_object_or_404(Skill, pk=pk)
+    skill.delete()
+    return redirect('home')
+
+def skill_edit(request, pk):
+    skill = get_object_or_404(Skill, pk=pk)
+
+    if request.method == 'POST':
+        form = SkillForm(request.POST, instance=skill)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = SkillForm(instance=skill)
+
+    return render(request, 'core/skill_edit.html', {'form': form})
